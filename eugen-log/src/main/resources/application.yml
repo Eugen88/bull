@@ -1,0 +1,40 @@
+# spring boot开发web程序，如果是jar形式运行，默认情况下不需要加应用名。比如在控制器中访问路径是/mvc/helloworld，在浏览器中可以直接使用http://ip:port/mvc/helloworld的形式访问。如果不习惯这种形式，
+# 可以在application配置文件中增加“server.context-path=/projectName”的形式，达到http://ip:port/projectName/mvc/helloworld的访问效果。
+server:
+  context-path: /log
+  
+# spring配置
+spring:
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    schema: classpath:/sql/table.sql
+    data: classpath:/sql/init.sql
+    sql-script-encoding: UTF-8
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  resources:
+    static-locations: classpath:/static/
+  http:
+    # 定义传输数据为UTF-8编码
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  profiles:
+    include: logResources
+
+
+# log default config  
+logging:
+  level:
+    root: INFO
